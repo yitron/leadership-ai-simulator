@@ -121,7 +121,6 @@ const App = {
     // Reset panels
     document.getElementById('decision-panel').classList.remove('hidden');
     document.getElementById('feedback-panel').classList.add('hidden');
-    document.getElementById('loading-state').classList.add('hidden');
 
     // Render question and options
     document.getElementById('decision-question').textContent = decision.question;
@@ -165,15 +164,11 @@ const App = {
     // Record the decision
     this.engine.recordDecision(this.currentDecisionIndex + 1, option, option.text);
 
-    // Show loading state (mocked AI processing delay)
+    // Brief delay then show feedback
     document.getElementById('decision-panel').classList.add('hidden');
-    document.getElementById('loading-state').classList.remove('hidden');
-
-    // Simulate AI processing delay
     setTimeout(() => {
-      document.getElementById('loading-state').classList.add('hidden');
       this.showFeedback(option);
-    }, 1200);
+    }, 400);
   },
 
   /** Show feedback after a decision */
@@ -232,7 +227,6 @@ const App = {
     // Hide decision and feedback panels
     document.getElementById('decision-panel').classList.add('hidden');
     document.getElementById('feedback-panel').classList.add('hidden');
-    document.getElementById('loading-state').classList.add('hidden');
 
     this.showScreen('results-screen');
 
