@@ -6,10 +6,5 @@
     "numReplicas": 1,
     "restartPolicyType": "ON_FAILURE",
     "startCommand": "npx serve . -l $PORT"
-  },
-  "staticSite": {
-    "buildCommand": "",
-    "outputDirectory": "/",
-    "buildWatchPaths": []
   }
 }

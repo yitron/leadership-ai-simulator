@@ -173,7 +173,6 @@ const App = {
       const sign = val >= 0 ? '+' : '';
       const cls = val >= 0 ? 'positive' : 'negative';
       const pct = this.engine.getPercentages()[dim.key];
-      const barWidth = document.getElementById('btn-continue').offsetWidth > 0 ? '100%' : '100%';
 
       const el = document.createElement('div');
       el.className = 'score-change-row';
