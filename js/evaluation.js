@@ -229,6 +229,75 @@ class EvaluationManager {
   }
 
   /**
+   * Export all evaluation data as a downloadable CSV file (for spreadsheet analysis)
+   * Each row = one completed scenario with scores + evaluation answers.
+   */
+  static exportCSV() {
+    const records = this.getAll();
+    if (records.length === 0) {
+      alert('No evaluation data to export.');
+      return;
+    }
+
+    // Build CSV header row
+    const headers = [
+      'Date',
+      'Scenario',
+      'Trust Score',
+      'AI Literacy Score',
+      'Accountability Score',
+      'Overall Score',
+      'Rating',
+      'Q1: Can apply to work',
+      'Q2: AI feedback helped reflect',
+      'Q3: Feel more prepared',
+      'Q4: Key takeaway'
+    ];
+
+    const rows = [];
+    for (const r of records) {
+      const date = r.createdAt ? new Date(r.createdAt).toLocaleDateString() : '';
+      const ev = r.evaluation || {};
+      rows.push([
+        date,
+        r.scenarioTitle || r.scenarioId,
+        r.scores?.trust ?? '',
+        r.scores?.literacy ?? '',
+        r.scores?.accountability ?? '',
+        r.overallScore ?? '',
+        r.rating ?? '',
+        ev.q1 ?? '',
+        ev.q2 ?? '',
+        ev.q3 ?? '',
+        ev.q4 ?? ''
+      ]);
+    }
+
+    // Escape CSV fields
+    const escape = (val) => {
+      const str = String(val ?? '');
+      if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
+    const lines = [
+      headers.map(escape).join(','),
+      ...rows.map(row => row.map(escape).join(','))
+    ];
+
+    const bom = '\uFEFF'; // UTF-8 BOM for Excel compatibility
+    const blob = new Blob([bom + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `leadership-ai-evaluations-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  /**
    * Clear all stored evaluation data
    */
   static clearAll() {

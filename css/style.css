@@ -713,3 +713,52 @@ body {
     min-width: 100%;
   }
 }
+
+/* --- Evaluator Tools Panel --- */
+.evaluator-panel {
+  margin-top: 40px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.evaluator-summary {
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  transition: background var(--transition);
+}
+.evaluator-summary:hover {
+  background: var(--bg);
+}
+.evaluator-summary::-webkit-details-marker {
+  display: none;
+}
+.evaluator-tools {
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--border);
+}
+.evaluator-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.evaluator-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.evaluator-count {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+}

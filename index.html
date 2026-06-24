@@ -44,6 +44,20 @@
       <h1>Select a Scenario</h1>
       <p class="subtitle">Choose a leadership challenge to begin</p>
       <div id="scenario-cards" class="scenario-cards"></div>
+
+      <!-- Evaluator Tools -->
+      <details class="evaluator-panel">
+        <summary class="evaluator-summary">🔧 Evaluator Tools</summary>
+        <div class="evaluator-tools">
+          <p class="evaluator-desc">Download all completed scenario results and Kirkpatrick L1 evaluation data.</p>
+          <div class="evaluator-actions">
+            <button id="btn-eval-csv" class="btn btn-secondary btn-sm">📥 Download CSV</button>
+            <button id="btn-eval-json" class="btn btn-secondary btn-sm">📥 Download JSON</button>
+            <button id="btn-eval-clear" class="btn btn-sm btn-danger" style="background:#ef4444;color:#fff;">🗑️ Clear All Data</button>
+          </div>
+          <p id="eval-record-count" class="evaluator-count"></p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -113,6 +127,7 @@
         <div class="results-actions">
           <button id="btn-retry" class="btn btn-secondary">Retry This Scenario</button>
           <button id="btn-back-scenarios" class="btn btn-primary">Back to Scenarios</button>
+          <button id="btn-download-csv" class="btn btn-secondary" title="Download all evaluation data as CSV for spreadsheet analysis">📥 Download Results (CSV)</button>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ const App = {
   /** Initialize the app */
   init() {
     this.bindEvents();
+    this.updateEvalRecordCount();
     this.showScreen('welcome-screen');
   },
 
@@ -32,6 +33,7 @@ const App = {
     // Results actions
     document.getElementById('btn-retry').addEventListener('click', () => this.startScenario(this.currentScenario.id));
     document.getElementById('btn-back-scenarios').addEventListener('click', () => this.showScenarioSelect());
+    document.getElementById('btn-download-csv').addEventListener('click', () => EvaluationManager.exportCSV());
 
     // Evaluation (delegated — rendered dynamically)
     document.addEventListener('click', (e) => {
@@ -40,6 +42,16 @@ const App = {
       }
       if (e.target.id === 'btn-skip-evaluation') {
         this.skipEvaluation();
+      }
+    });
+
+    // Evaluator tools
+    document.getElementById('btn-eval-csv').addEventListener('click', () => EvaluationManager.exportCSV());
+    document.getElementById('btn-eval-json').addEventListener('click', () => EvaluationManager.exportData());
+    document.getElementById('btn-eval-clear').addEventListener('click', () => {
+      if (confirm('Are you sure you want to delete ALL evaluation data? This cannot be undone.')) {
+        EvaluationManager.clearAll();
+        this.updateEvalRecordCount();
       }
     });
   },
@@ -68,6 +80,8 @@ const App = {
       card.addEventListener('click', () => this.startScenario(s.id));
       container.appendChild(card);
     });
+
+    this.updateEvalRecordCount();
   },
 
   /** Start a scenario */
@@ -280,6 +294,7 @@ const App = {
       rating: this.engine.getRating().badge
     };
     EvaluationManager.submit(context);
+    this.updateEvalRecordCount();
   },
 
   /** Skip evaluation */
@@ -295,6 +310,17 @@ const App = {
         <p class="evaluation-done-msg">No problem! You can always come back and complete another scenario.</p>
       `;
     }
+  },
+
+  /** Update evaluator record count display */
+  updateEvalRecordCount() {
+    const el = document.getElementById('eval-record-count');
+    if (!el) return;
+    const records = EvaluationManager.getAll();
+    const count = records.length;
+    el.textContent = count > 0
+      ? `${count} scenario${count > 1 ? 's' : ''} completed with evaluation feedback.`
+      : 'No evaluation data recorded yet.';
   }
 };
 
