@@ -32,6 +32,16 @@ const App = {
     // Results actions
     document.getElementById('btn-retry').addEventListener('click', () => this.startScenario(this.currentScenario.id));
     document.getElementById('btn-back-scenarios').addEventListener('click', () => this.showScenarioSelect());
+
+    // Evaluation (delegated — rendered dynamically)
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'btn-submit-evaluation') {
+        this.submitEvaluation();
+      }
+      if (e.target.id === 'btn-skip-evaluation') {
+        this.skipEvaluation();
+      }
+    });
   },
 
   /** Show a screen by ID */
@@ -250,6 +260,41 @@ const App = {
     document.getElementById('rating-badge').className = `rating-badge ${rating.badgeClass}`;
     document.getElementById('rating-badge').textContent = rating.badge;
     document.getElementById('rating-description').textContent = rating.description;
+
+    // Render evaluation form
+    const evalContainer = document.getElementById('evaluation-container');
+    EvaluationManager.renderForm(evalContainer, this.currentScenario.id);
+  },
+
+  /** Submit evaluation feedback */
+  submitEvaluation() {
+    const context = {
+      scenarioId: this.currentScenario.id,
+      scenarioTitle: this.currentScenario.title,
+      scores: {
+        trust: this.engine.scores.trust,
+        literacy: this.engine.scores.literacy,
+        accountability: this.engine.scores.accountability
+      },
+      overallScore: this.engine.getOverallScore(),
+      rating: this.engine.getRating().badge
+    };
+    EvaluationManager.submit(context);
+  },
+
+  /** Skip evaluation */
+  skipEvaluation() {
+    const panel = document.querySelector('.evaluation-panel');
+    if (panel) {
+      panel.classList.add('evaluation-complete');
+      panel.innerHTML = `
+        <div class="evaluation-header">
+          <span class="evaluation-icon">⏭️</span>
+          <h3>Skipped</h3>
+        </div>
+        <p class="evaluation-done-msg">No problem! You can always come back and complete another scenario.</p>
+      `;
+    }
   }
 };
 
