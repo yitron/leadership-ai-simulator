@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leadership AI Scenario Simulator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- WELCOME SCREEN -->
+  <section id="welcome-screen" class="screen active">
+    <div class="container">
+      <div class="welcome-card">
+        <div class="logo-icon">🤖</div>
+        <h1>Leadership AI Scenario Simulator</h1>
+        <p class="subtitle">Practice making leadership decisions in AI-enabled team environments</p>
+        <p class="description">
+          Navigate realistic corporate scenarios where AI intersects with team management.
+          Your choices will be scored across three leadership dimensions:
+          <strong>Trust</strong>, <strong>AI Literacy</strong>, and <strong>Accountability</strong>.
+        </p>
+        <div class="dimension-preview">
+          <div class="dim-item">
+            <span class="dim-icon">🤝</span>
+            <span class="dim-label">Trust</span>
+          </div>
+          <div class="dim-item">
+            <span class="dim-icon">🧠</span>
+            <span class="dim-label">AI Literacy</span>
+          </div>
+          <div class="dim-item">
+            <span class="dim-icon">🎯</span>
+            <span class="dim-label">Accountability</span>
+          </div>
+        </div>
+        <button id="btn-start" class="btn btn-primary">Begin Simulation</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENARIO SELECTION -->
+  <section id="scenario-select-screen" class="screen">
+    <div class="container">
+      <h1>Select a Scenario</h1>
+      <p class="subtitle">Choose a leadership challenge to begin</p>
+      <div id="scenario-cards" class="scenario-cards"></div>
+    </div>
+  </section>
+
+  <!-- SCENARIO VIEW -->
+  <section id="scenario-screen" class="screen">
+    <div class="container">
+      <div class="scenario-header">
+        <button id="btn-back" class="btn btn-back">← Back to Scenarios</button>
+        <h2 id="scenario-title"></h2>
+      </div>
+      <div id="progress-bar" class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-text">
+        Decision <span id="decision-current">1</span> of <span id="decision-total">3</span>
+      </div>
+
+      <div id="context-panel" class="context-panel">
+        <h3>Context</h3>
+        <p id="context-text"></p>
+      </div>
+
+      <!-- Loading state (mocked AI processing) -->
+      <div id="loading-state" class="loading-state hidden">
+        <div class="spinner"></div>
+        <p>AI is analyzing your decision...</p>
+      </div>
+
+      <!-- Decision panel -->
+      <div id="decision-panel" class="decision-panel">
+        <h3 id="decision-question"></h3>
+        <div id="decision-options" class="decision-options"></div>
+        <button id="btn-submit" class="btn btn-primary" disabled>Submit Decision</button>
+      </div>
+
+      <!-- Feedback panel (shown after submission) -->
+      <div id="feedback-panel" class="feedback-panel hidden">
+        <div class="feedback-header">
+          <span class="feedback-icon">💡</span>
+          <h3>AI Coaching Feedback</h3>
+        </div>
+        <p id="feedback-text" class="feedback-text"></p>
+        <div id="score-changes" class="score-changes"></div>
+        <button id="btn-continue" class="btn btn-primary">Continue →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="results-screen" class="screen">
+    <div class="container">
+      <div class="results-card">
+        <h1>Simulation Complete</h1>
+        <p class="subtitle" id="results-scenario-name"></p>
+
+        <div id="dimension-scores" class="dimension-scores"></div>
+
+        <div id="overall-rating" class="overall-rating">
+          <h2>Overall Rating</h2>
+          <div id="rating-badge" class="rating-badge"></div>
+          <p id="rating-description" class="rating-description"></p>
+        </div>
+
+        <div class="results-actions">
+          <button id="btn-retry" class="btn btn-secondary">Retry This Scenario</button>
+          <button id="btn-back-scenarios" class="btn btn-primary">Back to Scenarios</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/data.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

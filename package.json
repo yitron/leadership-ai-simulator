@@ -1,0 +1,12 @@
+{
+  "name": "leadership-ai-simulator",
+  "version": "1.0.0",
+  "description": "AI-powered scenario simulator for Leading AI-Enabled Teams",
+  "scripts": {
+    "start": "npx serve . -l $PORT",
+    "build": "echo 'Static site - no build required'"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  }
+}
